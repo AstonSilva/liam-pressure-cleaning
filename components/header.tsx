@@ -87,6 +87,18 @@ export function Header() {
         !url.hash
       )
         return;
+      if (
+        url.hash === "#contact" &&
+        window.matchMedia("(max-width: 767px)").matches &&
+        !anchor.closest("nav")
+      ) {
+        event.preventDefault();
+        setOpen(false);
+        window.dispatchEvent(
+          new CustomEvent("estimate-open", { detail: anchor }),
+        );
+        return;
+      }
       event.preventDefault();
       scheduleScroll(url.hash, { updateHistory: true, smooth: true });
     };

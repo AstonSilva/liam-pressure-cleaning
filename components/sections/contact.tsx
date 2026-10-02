@@ -1,6 +1,6 @@
 import { Phone, MessageCircle, Mail, ArrowUpRight } from "lucide-react";
 import { business } from "@/lib/business";
-import { EstimateForm } from "@/components/estimate-form";
+import { ResponsiveEstimateForm } from "@/components/responsive-estimate-form";
 export function Contact() {
   return (
     <section
@@ -53,7 +53,7 @@ export function Contact() {
           </dl>
         </div>
       </div>
-      <EstimateForm />
+      <ResponsiveEstimateForm />
     </section>
   );
 }

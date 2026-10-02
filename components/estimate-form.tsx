@@ -18,7 +18,7 @@ const emptyEstimate: Estimate = {
   service: "",
   message: "",
 };
-export function EstimateForm() {
+export function EstimateForm({ modal = false }: { modal?: boolean }) {
   const [values, setValues] = useState<Estimate>(emptyEstimate);
   const [errors, setErrors] = useState<EstimateErrors>({});
   const [touched, setTouched] = useState<
@@ -142,10 +142,12 @@ export function EstimateForm() {
       className="estimate-form"
       noValidate
     >
-      <div className="form-heading">
-        <h3>Your property. Your free estimate.</h3>
-        <p>Tell us a little about what you have in mind.</p>
-      </div>
+      {!modal && (
+        <div className="form-heading">
+          <h3>Your property. Your free estimate.</h3>
+          <p>Tell us a little about what you have in mind.</p>
+        </div>
+      )}
       <div className="form-grid">
         <label htmlFor="estimate-name">
           Name <span aria-hidden="true">*</span>
