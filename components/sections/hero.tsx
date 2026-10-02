@@ -1,5 +1,12 @@
 import Image from "next/image";
-import { ArrowDown, Phone, MapPin, Building2, Sparkles } from "lucide-react";
+import {
+  ArrowDown,
+  Phone,
+  MapPin,
+  Building2,
+  Sparkles,
+  BadgeCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { business } from "@/lib/business";
 import heroImage from "@/public/images/hero/pressure-washing-hero-square.png";
@@ -42,7 +49,7 @@ export function Hero() {
             fill
             preload
             unoptimized
-            sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 45vw, 580px"
+            sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1280px) 45vw, 580px"
             className="hero-image"
           />
           <div className="image-caption">
@@ -66,9 +73,10 @@ export function Hero() {
           <MapPin />
           Serving Central Florida
         </span>
-        <a href="#contact">
-          Free estimates <span aria-hidden="true">↗</span>
-        </a>
+        <span>
+          <BadgeCheck aria-hidden="true" />
+          Free estimates
+        </span>
       </div>
     </>
   );

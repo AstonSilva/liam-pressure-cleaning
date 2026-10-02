@@ -1,4 +1,5 @@
 import { Phone, ArrowUpRight } from "lucide-react";
+import { SocialIcon } from "./ui/social-icon";
 import { business, navigation } from "@/lib/business";
 import { Logo } from "./logo";
 import { Button } from "./ui/button";
@@ -32,14 +33,16 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram <ArrowUpRight size={14} />
+                <SocialIcon brand="instagram" size={16} />
+                Instagram <ArrowUpRight size={14} aria-hidden="true" />
               </a>
               <a
                 href={business.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Facebook <ArrowUpRight size={14} />
+                <SocialIcon brand="facebook" size={16} />
+                Facebook <ArrowUpRight size={14} aria-hidden="true" />
               </a>
               <a href={business.tel}>{business.phone}</a>
               <a className="footer-email" href={`mailto:${business.email}`}>

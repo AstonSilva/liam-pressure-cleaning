@@ -31,7 +31,7 @@ export function BeforeAfter() {
                 unoptimized
                 alt={comparison.afterAlt}
                 fill
-                sizes="(max-width: 760px) 100vw, 1240px"
+                sizes="(max-width: 767px) 100vw, 1240px"
                 className="comparison-image"
               />
               <div
@@ -43,7 +43,7 @@ export function BeforeAfter() {
                   unoptimized
                   alt={comparison.beforeAlt}
                   fill
-                  sizes="(max-width: 760px) 100vw, 1240px"
+                  sizes="(max-width: 767px) 100vw, 1240px"
                   className="comparison-image"
                 />
               </div>

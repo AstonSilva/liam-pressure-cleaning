@@ -340,11 +340,6 @@ h1 span {
   width: 18px;
   color: var(--blue);
 }
-.trust-strip > a {
-  font-size: 13px;
-  color: var(--blue);
-  font-weight: 600;
-}
 .skip-link {
   position: fixed;
   top: -100px;
@@ -386,7 +381,7 @@ h1 span {
     height: 480px;
   }
 }
-@media (max-width: 960px) {
+@media (max-width: 1023px) {
   .container {
     width: calc(100% - 48px);
   }
@@ -421,7 +416,7 @@ h1 span {
     flex-basis: calc(50% - 32px);
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   html {
     scroll-padding-top: 100px;
   }
@@ -450,7 +445,14 @@ h1 span {
   }
   .hero-actions {
     margin-top: 24px;
-    gap: 14px 24px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions > .button,
+  .hero-actions > .text-action {
+    width: 100%;
+    justify-content: center;
   }
   .hero-note {
     margin-top: 12px;
@@ -487,12 +489,9 @@ h1 span {
     gap: 18px 12px;
   }
   .trust-strip > span {
-    font-size: 12px;
+    font-size: 13px;
     flex-basis: calc(50% - 6px);
     align-items: flex-start;
-  }
-  .trust-strip > a {
-    font-size: 12px;
   }
   .trust-strip svg {
     width: 16px;
@@ -883,10 +882,16 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0;
+  gap: 2px;
 }
 .gallery-social a {
   color: var(--blue);
+  min-height: 44px;
+  gap: 9px;
+  white-space: nowrap;
+}
+.gallery-social a > svg:last-child {
+  margin-left: 2px;
 }
 .gallery-grid {
   display: grid;
@@ -1334,7 +1339,7 @@ h3 {
     font-size: 12px;
   }
 }
-@media (max-width: 960px) {
+@media (max-width: 1023px) {
   .section {
     padding-block: 80px;
   }
@@ -1412,7 +1417,7 @@ h3 {
     gap: 10px;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   body {
     padding-bottom: 76px;
   }
@@ -1431,12 +1436,16 @@ h3 {
     max-width: 520px;
   }
   .services-grid {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
   .service-card {
-    padding: 22px 18px;
-    min-height: 300px;
+    padding: 20px 18px;
+    min-height: 220px;
     border-radius: 14px;
+  }
+  .service-top {
+    margin-bottom: 18px;
   }
   .service-card h3 {
     font-size: 19px;
@@ -1444,6 +1453,7 @@ h3 {
   }
   .service-card p {
     font-size: 14px;
+    margin-bottom: 20px;
   }
   .service-link {
     font-size: 12px;
@@ -1590,6 +1600,7 @@ h3 {
   }
   .gallery-social {
     margin-top: 20px;
+    gap: 2px;
   }
   .gallery-grid {
     grid-template-columns: 1fr;
@@ -1692,14 +1703,14 @@ h3 {
     font-size: 12px;
   }
   .footer-main {
-    gap: 35px 24px;
-    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    grid-template-columns: 1fr;
   }
   .footer-brand {
-    grid-column: 1/-1;
+    grid-column: auto;
   }
   .footer-main .footer-cta {
-    grid-column: 1/-1;
+    grid-column: auto;
     border-top: 1px solid var(--line);
     padding-top: 20px;
   }
@@ -1826,7 +1837,7 @@ h3 {
     grid-column: auto;
   }
 }
-@media (min-width: 961px) {
+@media (min-width: 1024px) {
   .hero-copy {
     animation: gentle-reveal 0.65s ease-out both;
   }
@@ -1860,7 +1871,7 @@ h3 {
 .area-intro,
 .section-heading > p { font-size: 16px; }
 .about-brand .logo { height: auto; }
-@media (min-width: 961px) { .mobile-nav { display: none; } }
+@media (min-width: 1024px) { .mobile-nav { display: none; } }
 
 /* Match the square hero asset and preserve the comparison photographs. */
 .hero-visual {
@@ -1885,7 +1896,7 @@ h3 {
   object-fit: contain;
   object-position: center;
 }
-@media (min-width: 761px) {
+@media (min-width: 768px) {
   .hero {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -1904,7 +1915,7 @@ h3 {
     display: none;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   .hero-visual {
     max-width: none;
     aspect-ratio: 1;

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Camera, ArrowUpRight } from "lucide-react";
+import { SocialIcon } from "@/components/ui/social-icon";
 import { business } from "@/lib/business";
 import { projects, testimonials } from "@/lib/media";
 export function Gallery() {
@@ -20,7 +21,7 @@ export function Gallery() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Camera size={18} aria-hidden="true" />
+            <SocialIcon brand="instagram" />
             Follow on Instagram <ArrowUpRight size={17} aria-hidden="true" />
           </a>
           <a
@@ -29,6 +30,7 @@ export function Gallery() {
             target="_blank"
             rel="noopener noreferrer"
           >
+            <SocialIcon brand="facebook" />
             Follow on Facebook <ArrowUpRight size={17} aria-hidden="true" />
           </a>
         </div>
@@ -42,7 +44,7 @@ export function Gallery() {
                     src={project.src}
                     alt={project.alt}
                     fill
-                    sizes="(max-width:760px) 100vw, 40vw"
+                    sizes="(max-width: 767px) calc(100vw - 40px), 40vw"
                   />
                 </div>
                 <figcaption>
