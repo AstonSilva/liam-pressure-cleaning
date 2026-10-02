@@ -4,7 +4,9 @@ import { ArrowUpRight, Mail, Check, Copy } from "lucide-react";
 import { business, serviceOptions } from "@/lib/business";
 import {
   createEstimateDraft,
+  formatUsPhone,
   validateEstimate,
+  validateEstimateField,
   type Estimate,
   type EstimateErrors,
 } from "@/lib/estimate";
@@ -19,11 +21,15 @@ const emptyEstimate: Estimate = {
 export function EstimateForm() {
   const [values, setValues] = useState<Estimate>(emptyEstimate);
   const [errors, setErrors] = useState<EstimateErrors>({});
+  const [touched, setTouched] = useState<
+    Partial<Record<keyof Estimate, boolean>>
+  >({});
   const [draft, setDraft] = useState<ReturnType<
     typeof createEstimateDraft
   > | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
   const draftRef = useRef<HTMLDivElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const selectService = (event: Event) => {
       const selected = (event as CustomEvent<string>).detail;
@@ -45,17 +51,69 @@ export function EstimateForm() {
     if (draft) draftRef.current?.focus();
   }, [draft]);
   function update(field: keyof Estimate, value: string) {
-    setValues((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
+    setValues((prev) => {
+      const next = { ...prev, [field]: value };
+      if (touched[field]) {
+        setErrors((current) => ({
+          ...current,
+          [field]: validateEstimateField(field, next),
+        }));
+      }
+      return next;
+    });
     setDraft(null);
     setCopyStatus("");
+  }
+  function blur(field: keyof Estimate) {
+    setTouched((current) => ({ ...current, [field]: true }));
+    setErrors((current) => ({
+      ...current,
+      [field]: validateEstimateField(field, values),
+    }));
+  }
+  function updatePhone(event: React.ChangeEvent<HTMLInputElement>) {
+    const input = event.currentTarget;
+    const raw = input.value;
+    const cursor = input.selectionStart ?? raw.length;
+    const rawDigits = raw.replace(/\D/g, "");
+    let digitsBeforeCursor = raw.slice(0, cursor).replace(/\D/g, "").length;
+    if (rawDigits.length === 11 && rawDigits.startsWith("1")) {
+      digitsBeforeCursor = Math.max(0, digitsBeforeCursor - 1);
+    }
+    const formatted = formatUsPhone(raw);
+    update("phone", formatted);
+    requestAnimationFrame(() => {
+      const target = phoneRef.current;
+      if (!target) return;
+      if (digitsBeforeCursor === 0) {
+        target.setSelectionRange(0, 0);
+        return;
+      }
+      let seen = 0;
+      let nextCursor = formatted.length;
+      for (let index = 0; index < formatted.length; index += 1) {
+        if (/\d/.test(formatted[index])) seen += 1;
+        if (seen === digitsBeforeCursor) {
+          nextCursor = index + 1;
+          break;
+        }
+      }
+      target.setSelectionRange(nextCursor, nextCursor);
+    });
   }
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validateEstimate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) {
-      const first = Object.keys(nextErrors)[0];
+      setTouched((current) => {
+        const next = { ...current };
+        (Object.keys(nextErrors) as (keyof Estimate)[]).forEach((field) => {
+          next[field] = true;
+        });
+        return next;
+      });
+      const first = Object.keys(nextErrors)[0] as keyof Estimate;
       document.getElementById(`estimate-${first}`)?.focus();
       return;
     }
@@ -67,10 +125,11 @@ export function EstimateForm() {
     value: values[name],
     "aria-invalid": !!errors[name],
     "aria-describedby": errors[name] ? `error-${name}` : undefined,
+    onBlur: () => blur(name),
   });
   const error = (name: keyof Estimate) =>
     errors[name] && (
-      <span className="field-error" id={`error-${name}`}>
+      <span className="field-error" id={`error-${name}`} role="alert">
         {errors[name]}
       </span>
     );
@@ -104,13 +163,14 @@ export function EstimateForm() {
           Phone <span aria-hidden="true">*</span>
           <input
             {...fieldProps("phone")}
+            ref={phoneRef}
             type="tel"
             inputMode="tel"
             autoComplete="tel"
             required
-            maxLength={30}
+            maxLength={24}
             placeholder="(407) 555-0123"
-            onChange={(e) => update("phone", e.target.value)}
+            onChange={updatePhone}
           />
           {error("phone")}
         </label>

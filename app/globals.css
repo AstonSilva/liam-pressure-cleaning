@@ -650,13 +650,14 @@ h3 {
   overflow: hidden;
   background: #dce6ea;
 }
-.comparison-image {
+.before-after-image {
   object-fit: cover;
   object-position: center 42%;
 }
-.comparison-before {
+.before-after-before {
   position: absolute;
   inset: 0;
+  clip-path: var(--before-clip);
 }
 .comparison-placeholder {
   position: absolute;
@@ -683,7 +684,7 @@ h3 {
   padding-left: 66%;
   color: #6e8c9b;
 }
-.comparison-divider {
+.before-after-divider {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -692,7 +693,7 @@ h3 {
   transform: translateX(-50%);
   pointer-events: none;
 }
-.comparison-divider > span {
+.before-after-divider > span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -706,7 +707,7 @@ h3 {
   box-shadow: 0 3px 20px #19384615;
   color: var(--blue);
 }
-.comparison-slider {
+.before-after-range {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -716,11 +717,11 @@ h3 {
   cursor: ew-resize;
   touch-action: pan-y;
 }
-.comparison:focus-within {
+.before-after:focus-within {
   outline: 3px solid var(--blue);
   outline-offset: 5px;
 }
-.compare-label {
+.before-after-label {
   position: absolute;
   top: 25px;
   z-index: 2;
@@ -732,10 +733,10 @@ h3 {
   letter-spacing: 0.1em;
   pointer-events: none;
 }
-.before-label {
+.before-after-label-before {
   left: 25px;
 }
-.after-label {
+.before-after-label-after {
   right: 25px;
 }
 .comparison-demo-note {
@@ -955,6 +956,28 @@ h3 {
 .gallery-photo img {
   object-fit: cover;
 }
+.gallery-comparison .before-after-image {
+  object-position: center;
+}
+.gallery-comparison .before-after-label {
+  top: 14px;
+  padding: 6px 10px;
+  font-size: 9px;
+}
+.gallery-comparison .before-after-label-before {
+  left: 14px;
+}
+.gallery-comparison .before-after-label-after {
+  right: 14px;
+}
+.gallery-comparison .before-after-divider > span {
+  width: 40px;
+  height: 40px;
+}
+.gallery-comparison:focus-within {
+  outline-width: 2px;
+  outline-offset: 3px;
+}
 .gallery-grid figcaption {
   display: flex;
   justify-content: space-between;
@@ -1160,6 +1183,16 @@ h3 {
   line-height: 1.5;
   color: var(--ink);
   min-height: 48px;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 100, 173, 0.12);
+  outline: none;
 }
 .form-grid input::placeholder,
 .form-grid textarea::placeholder {
@@ -1171,6 +1204,10 @@ h3 {
 }
 .form-grid [aria-invalid="true"] {
   border-color: #b52936;
+}
+.form-grid [aria-invalid="true"]:focus {
+  border-color: #b52936;
+  box-shadow: 0 0 0 3px rgba(181, 41, 54, 0.12);
 }
 .form-note {
   font-size: 12px;
@@ -1196,6 +1233,8 @@ h3 {
   font-size: 12px;
   margin-top: 6px;
   font-weight: 400;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 .draft-panel {
   margin-top: 26px;
@@ -1502,7 +1541,7 @@ h3 {
     height: 320px;
     border-radius: 16px;
   }
-  .comparison-image {
+  .comparison .before-after-image {
     object-position: center center;
   }
   .comparison-placeholder {
@@ -1525,18 +1564,18 @@ h3 {
     right: 12px;
     bottom: 14px;
   }
-  .compare-label {
+  .comparison .before-after-label {
     font-size: 10px;
     top: 16px;
     padding: 6px 12px;
   }
-  .before-label {
+  .comparison .before-after-label-before {
     left: 16px;
   }
-  .after-label {
+  .comparison .before-after-label-after {
     right: 16px;
   }
-  .comparison-divider > span {
+  .comparison .before-after-divider > span {
     width: 44px;
     height: 44px;
   }
@@ -1919,7 +1958,7 @@ h3 {
   height: auto;
   aspect-ratio: 1122 / 701;
 }
-.comparison-image {
+.comparison .before-after-image {
   object-fit: contain;
   object-position: center;
 }
@@ -1929,16 +1968,17 @@ h3 {
     gap: 40px;
     padding-block: 32px;
   }
-  .comparison > .comparison-image {
+  .comparison > .before-after-image {
     left: 50% !important;
     width: 50% !important;
   }
-  .comparison-before {
+  .comparison .before-after-before {
     width: 50%;
     border-right: 2px solid white;
+    clip-path: none;
   }
-  .comparison-divider,
-  .comparison-slider {
+  .comparison .before-after-divider,
+  .comparison .before-after-range {
     display: none;
   }
 }
@@ -1950,7 +1990,7 @@ h3 {
   .comparison {
     aspect-ratio: 1122 / 1402;
   }
-  .comparison-before {
+  .comparison .before-after-before {
     clip-path: var(--before-clip);
   }
 }

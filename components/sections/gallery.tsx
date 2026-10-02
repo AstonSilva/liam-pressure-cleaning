@@ -3,6 +3,7 @@ import { Camera, ArrowUpRight } from "lucide-react";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { business } from "@/lib/business";
 import { projects, testimonials } from "@/lib/media";
+import { BeforeAfterSlider } from "@/components/ui/before-after-slider";
 export function Gallery() {
   return (
     <section
@@ -39,14 +40,27 @@ export function Gallery() {
         {projects.length
           ? projects.map((project) => (
               <figure key={project.title}>
-                <div className="gallery-photo">
-                  <Image
-                    src={project.src}
-                    alt={project.alt}
-                    fill
+                {project.comparison ? (
+                  <BeforeAfterSlider
+                    before={project.comparison.before}
+                    after={project.comparison.after}
+                    beforeAlt={project.comparison.beforeAlt}
+                    afterAlt={project.comparison.afterAlt}
+                    ariaLabel={`${project.title} before and after image comparison`}
+                    className="gallery-photo gallery-comparison"
                     sizes="(max-width: 767px) calc(100vw - 40px), 40vw"
+                    compact
                   />
-                </div>
+                ) : (
+                  <div className="gallery-photo">
+                    <Image
+                      src={project.src}
+                      alt={project.alt}
+                      fill
+                      sizes="(max-width: 767px) calc(100vw - 40px), 40vw"
+                    />
+                  </div>
+                )}
                 <figcaption>
                   <span>{project.title}</span>
                   <small>{project.service}</small>

@@ -1,11 +1,7 @@
-"use client";
-import Image from "next/image";
-import { useState, type CSSProperties } from "react";
-import { ChevronsLeftRight, Camera } from "lucide-react";
 import { comparison } from "@/lib/media";
 import { Button } from "@/components/ui/button";
+import { BeforeAfterSlider } from "@/components/ui/before-after-slider";
 export function BeforeAfter() {
-  const [position, setPosition] = useState(50);
   return (
     <section
       className="comparison-section section"
@@ -23,69 +19,15 @@ export function BeforeAfter() {
               : "Every property has its own story. Explore our social pages for cleaning work and exterior inspiration."}
           </p>
         </div>
-        <div className={`comparison ${comparison ? "" : "comparison-empty"}`}>
-          {comparison ? (
-            <>
-              <Image
-                src={comparison.after}
-                unoptimized
-                alt={comparison.afterAlt}
-                fill
-                sizes="(max-width: 767px) 100vw, 1240px"
-                className="comparison-image"
-              />
-              <div
-                className="comparison-before"
-                style={{ "--before-clip": `inset(0 ${100 - position}% 0 0)` } as CSSProperties}
-              >
-                <Image
-                  src={comparison.before}
-                  unoptimized
-                  alt={comparison.beforeAlt}
-                  fill
-                  sizes="(max-width: 767px) 100vw, 1240px"
-                  className="comparison-image"
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="comparison-placeholder">
-                <Camera size={36} strokeWidth={1} />
-                <span>Before photo</span>
-                <small>Project photography coming soon</small>
-              </div>
-              <div
-                className="comparison-placeholder after-placeholder"
-                style={{ clipPath: `inset(0 0 0 ${position}%)` }}
-              >
-                <Camera size={36} strokeWidth={1} />
-                <span>After photo</span>
-                <small>Project photography coming soon</small>
-              </div>
-              <div className="comparison-demo-note">
-                Photo comparison preview · no project photos added yet
-              </div>
-            </>
-          )}
-          <span className="compare-label before-label">BEFORE</span>
-          <span className="compare-label after-label">AFTER</span>
-          <div className="comparison-divider" style={{ left: `${position}%` }}>
-            <span>
-              <ChevronsLeftRight size={24} />
-            </span>
-          </div>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={position}
-            onChange={(e) => setPosition(Number(e.target.value))}
-            aria-label="Before and after image comparison"
-            aria-valuetext={`${position}% before, ${100 - position}% after`}
-            className="comparison-slider"
-          />
-        </div>
+        <BeforeAfterSlider
+          before={comparison.before}
+          after={comparison.after}
+          beforeAlt={comparison.beforeAlt}
+          afterAlt={comparison.afterAlt}
+          ariaLabel="Driveway before and after image comparison"
+          className="comparison"
+          sizes="(max-width: 767px) 100vw, 1240px"
+        />
         <div className="comparison-bottom">
           <p>
             {comparison?.title ?? "A cleaner view starts with a conversation."}
