@@ -18,8 +18,9 @@ export function Header() {
     return () => window.removeEventListener("keydown", close);
   }, [open]);
   return (
-    <header className="site-header">
-      <div className="container nav-shell">
+    <>
+      <header className={`site-header${open ? " menu-open" : ""}`}>
+        <div className="container nav-shell">
         <a
           className="brand"
           href="#home"
@@ -57,20 +58,21 @@ export function Header() {
             {open ? <X /> : <Menu />}
           </button>
         </div>
-        <nav
-          id="mobile-navigation"
-          className="mobile-nav"
-          aria-label="Mobile navigation"
-          hidden={!open}
-        >
-          {navigation.map(([name, href]) => (
-            <a key={name} href={href} onClick={() => setOpen(false)}>
-              {name}
-            </a>
-          ))}
-          <a href={business.sms}>Text {business.phone}</a>
-        </nav>
-      </div>
-    </header>
+        </div>
+      </header>
+      <nav
+        id="mobile-navigation"
+        className="mobile-nav"
+        aria-label="Mobile navigation"
+        hidden={!open}
+      >
+        {navigation.map(([name, href]) => (
+          <a key={name} href={href} onClick={() => setOpen(false)}>
+            {name}
+          </a>
+        ))}
+        <a href={business.sms}>Text {business.phone}</a>
+      </nav>
+    </>
   );
 }

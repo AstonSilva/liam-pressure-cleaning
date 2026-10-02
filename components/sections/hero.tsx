@@ -63,19 +63,19 @@ export function Hero() {
       <div className="trust-strip container">
         <span>
           <Sparkles />
-          Professional exterior cleaning
+          <span>Professional exterior cleaning</span>
         </span>
         <span>
           <Building2 />
-          Residential & commercial
+          <span>Residential & commercial</span>
         </span>
         <span>
           <MapPin />
-          Serving Central Florida
+          <span>Serving Central Florida</span>
         </span>
         <span>
           <BadgeCheck aria-hidden="true" />
-          Free estimates
+          <span>Free estimates</span>
         </span>
       </div>
     </>

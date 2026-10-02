@@ -190,10 +190,11 @@ p {
   justify-content: center;
 }
 .mobile-nav {
-  position: absolute;
-  top: 100%;
-  left: -24px;
-  right: -24px;
+  position: fixed;
+  z-index: 29;
+  top: 84px;
+  left: 0;
+  right: 0;
   background: white;
   padding: 18px 28px 28px;
   border-bottom: 1px solid var(--line);
@@ -418,25 +419,29 @@ h1 span {
 }
 @media (max-width: 767px) {
   :root {
-    --mobile-glass-background: rgba(255, 255, 255, 0.84);
+    --mobile-glass-background: rgba(255, 255, 255, 0.92);
     --mobile-glass-border: rgba(255, 255, 255, 0.72);
     --mobile-glass-blur: blur(16px) saturate(145%);
     --mobile-glass-shadow: 0 8px 28px rgba(20, 33, 42, 0.08);
     --mobile-glass-radius: 16px;
+    --mobile-header-glass-background: rgba(255, 255, 255, 0.8);
+    --mobile-header-glass-blur: blur(20px) saturate(155%);
   }
   html {
     scroll-padding-top: 100px;
   }
   .site-header {
-    background: var(--mobile-glass-background);
-    -webkit-backdrop-filter: var(--mobile-glass-blur);
-    backdrop-filter: var(--mobile-glass-blur);
+    background: var(--mobile-header-glass-background);
+    -webkit-backdrop-filter: var(--mobile-header-glass-blur);
+    backdrop-filter: var(--mobile-header-glass-blur);
     border-bottom: 1px solid var(--mobile-glass-border);
     border-radius: 0 0 var(--mobile-glass-radius) var(--mobile-glass-radius);
     box-shadow: var(--mobile-glass-shadow);
   }
-  .site-header:has(.mobile-nav:not([hidden])) {
+  .site-header.menu-open {
     border-radius: 0;
+    border-bottom-color: transparent;
+    box-shadow: none;
   }
   .container {
     width: calc(100% - 40px);
@@ -503,15 +508,29 @@ h1 span {
     width: 70px;
   }
   .trust-strip {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     padding-block: 22px;
     gap: 18px 12px;
   }
   .trust-strip > span {
     font-size: 13px;
-    flex-basis: calc(50% - 6px);
     align-items: flex-start;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    justify-self: start;
+    text-align: left;
+  }
+  .trust-strip > span:nth-child(even) {
+    justify-self: end;
+  }
+  .trust-strip > span > span {
+    min-width: 0;
+    text-align: left;
   }
   .trust-strip svg {
+    flex: 0 0 auto;
     width: 16px;
     height: 18px;
   }
@@ -525,11 +544,12 @@ h1 span {
     font-size: 11px;
   }
   .mobile-nav {
-    left: -20px;
-    right: -20px;
-    background: rgba(255, 255, 255, 0.96);
-    -webkit-backdrop-filter: var(--mobile-glass-blur);
-    backdrop-filter: var(--mobile-glass-blur);
+    top: 78px;
+    left: 0;
+    right: 0;
+    background: var(--mobile-header-glass-background);
+    -webkit-backdrop-filter: var(--mobile-header-glass-blur);
+    backdrop-filter: var(--mobile-header-glass-blur);
     border-bottom: 1px solid var(--mobile-glass-border);
     border-radius: 0 0 var(--mobile-glass-radius) var(--mobile-glass-radius);
     box-shadow: var(--mobile-glass-shadow);
@@ -1503,20 +1523,21 @@ h3 {
     gap: 12px;
   }
   .service-card {
-    padding: 20px 18px;
-    min-height: 220px;
+    padding: 15px 18px 16px;
+    min-height: 195px;
     border-radius: 14px;
   }
   .service-top {
-    margin-bottom: 18px;
+    margin-bottom: 13px;
   }
   .service-card h3 {
     font-size: 19px;
     line-height: 1.2;
+    margin-bottom: 10px;
   }
   .service-card p {
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
   .service-link {
     font-size: 12px;
@@ -1856,10 +1877,10 @@ h3 {
     grid-template-columns: 1fr;
   }
   .service-card {
-    min-height: 240px;
+    min-height: 210px;
   }
   .service-top {
-    margin-bottom: 25px;
+    margin-bottom: 13px;
   }
   .city-grid {
     column-gap: 14px;
